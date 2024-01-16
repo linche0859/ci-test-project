@@ -13,13 +13,11 @@ jobs:
     - name: Checkout ci-test-project
       uses: actions/checkout@v4
 
-    - name: Checkout cypress-e2e
-      uses: actions/checkout@v4
-      with:
-        repository: linche0859/cypress-e2e
-        path: cypress-e2e
-        ref: master
-        token: ${{ secrets.CI_TOKEN }}
+    - name: Clone cypress-e2e
+      run: |
+        git clone https://github.com/linche0859/cypress-e2e.git cypress-e2e
+      env:
+        GH_TOKEN: ${{ secrets.CI_TOKEN }}
       
     - name: Install dependencies
       run: |

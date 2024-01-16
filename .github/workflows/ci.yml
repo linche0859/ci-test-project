@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  basic-ubuntu-20:
-    runs-on: ubuntu-20.04
+  test-cypress:
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout ci-test-project
@@ -23,13 +23,29 @@ jobs:
         git config --global user.email "${{ secrets.USER_NAME }}"
         git config --global user.name "${{ secrets.USER_EMAIL }}"
 
+    - name: Clone lecturers-backstage
+      run: |
+        git clone git@github.com:linche0859/lecturers-backstage.git lecturers-backstage
+      env:
+        GH_TOKEN: ${{ secrets.CI_TOKEN }}
+
+    - name: Install lecturers-backstage dependencies
+      run: |
+        cd lecturers-backstage
+        npm install
+
+    - name: Run lecturers-backstage
+      run: |
+        cd lecturers-backstage
+        npm run dev -p 3001
+
     - name: Clone cypress-e2e
       run: |
         git clone git@github.com:linche0859/cypress-e2e.git cypress-e2e
       env:
         GH_TOKEN: ${{ secrets.CI_TOKEN }}
       
-    - name: Install dependencies
+    - name: Install cypress-e2e dependencies
       run: |
         cd cypress-e2e
         npm install

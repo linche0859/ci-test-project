@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
+    - name: Checkout ci-test-project
+      uses: actions/checkout@v4
+
     - name: Checkout ci-cypress-project
       uses: actions/checkout@v4
       with:

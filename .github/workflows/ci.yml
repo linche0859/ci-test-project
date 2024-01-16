@@ -13,19 +13,19 @@ jobs:
     - name: Checkout ci-test-project
       uses: actions/checkout@v4
 
-    - name: Checkout ci-cypress-project
+    - name: Checkout cypress-e2e
       uses: actions/checkout@v4
       with:
-        repository: linche0859/ci-cypress-project
-        path: ci-cypress-project
+        repository: linche0859/cypress-e2e
+        path: cypress-e2e
       
     - name: Install dependencies
       run: |
-        cd ci-cypress-project
+        cd cypress-e2e
         npm install
 
     - name: Cypress tests
       run: |
-        cd ci-cypress-project
-        npm run test
+        cd cypress-e2e
+        npm run cy:run
 

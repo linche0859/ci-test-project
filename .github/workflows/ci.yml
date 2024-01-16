@@ -15,7 +15,7 @@ jobs:
       with:
         repository: linche0859/ci-cypress-project
         path: ci-cypress-project
-
+      
     - name: Install dependencies
       run: |
         cd ci-cypress-project
@@ -24,6 +24,5 @@ jobs:
     - name: Cypress tests
       uses: cypress-io/github-action@v6
       with:
-        working-directory: ./
         build: npx cypress info
 

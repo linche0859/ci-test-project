@@ -6,15 +6,12 @@ on:
       - main
 
 jobs:
-  test-cypress:
-    runs-on: ubuntu-latest
+  basic-ubuntu-20:
+    runs-on: ubuntu-20.04
 
     steps:
-    - name: Checkout ci-test-project
-      uses: actions/checkout@v2
-
     - name: Checkout ci-cypress-project
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         repository: linche0859/ci-cypress-project
         path: ci-cypress-project
@@ -24,26 +21,9 @@ jobs:
         cd ci-cypress-project
         npm install
 
-    - name: Run Cypress tests
-      run: |
-        cd ci-cypress-project
-        npm run test
+    - name: Cypress tests
+      uses: ./
+      with:
+        working-directory: ./
+        build: npx cypress info
 
-    - name: Check test result
-      id: test-result
-      run: echo "::set-output name=status::$(grep -q 'Test failed' ci-cypress-project/output.txt && echo 'failed' || echo 'success')"
-
-  check-status:
-    runs-on: ubuntu-latest
-    needs: test-cypress
-
-    steps:
-    - name: Check Cypress test status
-      run: |
-        status="${{ needs.test-cypress.outputs.status }}"
-        if [ "$status" == "success" ]; then
-          echo "Run CI successfully"
-        else
-          echo "Run CI failed"
-          exit 1
-        fi

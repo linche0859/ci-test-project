@@ -18,6 +18,8 @@ jobs:
       with:
         repository: linche0859/cypress-e2e
         path: cypress-e2e
+        ref: master
+        token: ${{ secrets.CI_TOKEN }}
       
     - name: Install dependencies
       run: |

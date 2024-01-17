@@ -13,6 +13,11 @@ jobs:
     - name: Checkout ci-test-project
       uses: actions/checkout@v4
 
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14
+
     - name: Configure SSH Key
       uses: webfactory/ssh-agent@v0.5.3
       with:

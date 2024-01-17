@@ -34,10 +34,26 @@ jobs:
         cd lecturers-backstage
         npm install
 
+    - name: Create lecturers-backstage .env file
+      run: |
+        cd lecturers-backstage
+        echo API_URL=${{ secrets.LECTURERS_BACKSTAGE_API_URL }} >> .env
+        echo LECTURER_DOMAIN=${{ secrets.LECTURERS_BACKSTAGE_LECTURER_DOMAIN }} >> .env
+        echo OFFICIAL_DOMAIN=${{ secrets.LECTURERS_BACKSTAGE_OFFICIAL_DOMAIN }} >> .env
+        echo APP_URL=${{ secrets.LECTURERS_BACKSTAGE_APP_URL }} >> .env
+        echo APP_AWS_THUMBNAIL_URL=${{ secrets.LECTURERS_BACKSTAGE_APP_AWS_THUMBNAIL_URL }} >> .env
+        echo APP_AWS_BUCKET=${{ secrets.LECTURERS_BACKSTAGE_APP_AWS_BUCKET }} >> .env
+        echo COOKIES_DOMAIN=${{ secrets.LECTURERS_BACKSTAGE_COOKIES_DOMAIN }} >> .env
+        echo CROSS_DOMAIN=${{ secrets.LECTURERS_BACKSTAGE_CROSS_DOMAIN }} >> .env
+        echo ENABLE_LOCALE=${{ secrets.LECTURERS_BACKSTAGE_ENABLE_LOCALE }} >> .env
+        echo LOCALE_URL=${{ secrets.LECTURERS_BACKSTAGE_LOCALE_URL }} >> .env
+        echo LOCALE_TOKEN=${{ secrets.LECTURERS_BACKSTAGE_LOCALE_TOKEN }} >> .env
+        echo ENABLE_PHRASE=${{ secrets.LECTURERS_BACKSTAGE_ENABLE_PHRASE }} >> .env
+
     - name: Run lecturers-backstage
       run: |
         cd lecturers-backstage
-        npm run dev -p 3001
+        npx nuxt -p 3001
 
     - name: Clone cypress-e2e
       run: |
@@ -49,6 +65,17 @@ jobs:
       run: |
         cd cypress-e2e
         npm install
+
+    - name: Create cypress-e2e .env file
+      run: |
+        cd cypress-e2e
+        echo PROJECT_ID=${{ secrets.CYPRESS_E2E_PROJECT_ID }} >> .env
+        echo SPA_URL=${{ secrets.CYPRESS_E2E_SPA_URL }} >> .env
+        echo BASE_URL=${{ secrets.CYPRESS_E2E_BASE_URL }} >> .env
+        echo VIEWPORT_WIDTH=${{ secrets.CYPRESS_E2E_VIEWPORT_WIDTH }} >> .env
+        echo VIEWPORT_HEIGHT=${{ secrets.CYPRESS_E2E_VIEWPORT_HEIGHT }} >> .env
+        echo LECTURER_URL=${{ secrets.CYPRESS_E2E_LECTURER_URL }} >> .env
+        echo ADMIN_URL=${{ secrets.CYPRESS_E2E_ADMIN_URL }} >> .env
 
     - name: Cypress tests
       run: |
